@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="vertical"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:paddingTop="4dp"
+                  android:paddingBottom="4dp"
+        >
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:layout_weight="3.5"
+            android:gravity="center"
+            android:text="主机地址"
+            />
+
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+                   android:layout_width="1dp"
+                   android:layout_height="match_parent"
+                   android:background="@color/deep_gray">
+        </ImageView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="80"
+            />
+
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+                   android:layout_width="1dp"
+                   android:layout_height="match_parent"
+                   android:background="@color/deep_gray">
+        </ImageView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:text="Service"
+            />
+
+        <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+                   android:layout_width="1dp"
+                   android:layout_height="match_parent"
+                   android:background="@color/deep_gray">
+        </ImageView>
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="4dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Type"
+            />
+
+    </LinearLayout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/port_info_rv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>
