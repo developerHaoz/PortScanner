@@ -25,11 +25,9 @@ public class PortInfoAdapter extends Adapter<PortInfoAdapter.PortInfoViewHolder>
         this.mPortInfoBeanList = portInfoBeanList;
     }
 
-
-
     @Override
     public PortInfoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_port_info, null);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_port_info, parent, false);
         PortInfoViewHolder holder = new PortInfoViewHolder(view);
         return holder;
     }

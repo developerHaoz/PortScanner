@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/port_info_tv_ip"
@@ -73,9 +73,12 @@
 
     </LinearLayout>
 
-    <ImageView xmlns:android="http://schemas.android.com/apk/res/android"
+    <ImageView
+        xmlns:android="http://schemas.android.com/apk/res/android"
                android:layout_width="match_parent"
                android:layout_height="1dp"
-               android:background="@color/deep_gray"></ImageView>
+               android:background="@color/deep_gray">
+
+    </ImageView>
 
 </LinearLayout>

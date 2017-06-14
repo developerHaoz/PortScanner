@@ -35,11 +35,11 @@ public class PortScannerHelper {
                 Logger.d("扫描结束");
                 break;
             }
-            try{
-                Thread.sleep(1000);
-            }catch (InterruptedException e){
-                e.printStackTrace();
-            }
+//            try{
+//                Thread.sleep(1000);
+//            }catch (InterruptedException e){
+//                e.printStackTrace();
+//            }
         }
     }
 
