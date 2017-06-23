@@ -1,5 +1,6 @@
 package com.example.developerhaoz.portscanner.ui;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.Adapter;
 import android.view.LayoutInflater;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 
 import com.example.developerhaoz.portscanner.R;
 import com.example.developerhaoz.portscanner.bean.PortInfoBean;
+import com.example.developerhaoz.portscanner.common.VolleyHelper;
+import com.example.developerhaoz.portscanner.utils.AddressDecoder;
+import com.example.developerhaoz.portscanner.utils.GsonHelper;
 
 import java.util.List;
 
@@ -20,8 +24,10 @@ import java.util.List;
 public class PortInfoAdapter extends Adapter<PortInfoAdapter.PortInfoViewHolder>{
 
     private List<PortInfoBean> mPortInfoBeanList;
+    private Context mContext;
 
-    public PortInfoAdapter(List<PortInfoBean> portInfoBeanList){
+    public PortInfoAdapter(Context context, List<PortInfoBean> portInfoBeanList){
+        mContext = context;
         this.mPortInfoBeanList = portInfoBeanList;
     }
 
@@ -34,10 +40,13 @@ public class PortInfoAdapter extends Adapter<PortInfoAdapter.PortInfoViewHolder>
 
     @Override
     public void onBindViewHolder(PortInfoViewHolder holder, int position) {
-        holder.mTvIp.setText(mPortInfoBeanList.get(position).getIp());
-        holder.mTvPort.setText(mPortInfoBeanList.get(position).getPort());
-        holder.mtvService.setText(mPortInfoBeanList.get(position).getService());
-        holder.mtvType.setText(mPortInfoBeanList.get(position).getType());
+        PortInfoBean portInfoBean = mPortInfoBeanList.get(position);
+        String portInfoStr = VolleyHelper.sendHttpGet(mContext, AddressDecoder.getAddress(portInfoBean.getPort()));
+        PortDataBean portDataBean = GsonHelper.getPortDataBean(portInfoStr);
+        holder.mTvIp.setText("192.168.199.209");
+        holder.mTvPort.setText(portInfoBean.getPort());
+        holder.mtvService.setText(portDataBean.getService());
+        holder.mtvType.setText(portDataBean.getType());
     }
 
     @Override

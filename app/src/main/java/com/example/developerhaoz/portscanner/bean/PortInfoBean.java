@@ -6,24 +6,18 @@ package com.example.developerhaoz.portscanner.bean;
 
 public class PortInfoBean {
 
-    private String ip;
     private String port;
     private String service;
     private String type;
 
-    public PortInfoBean(String ip, String port, String service, String type) {
-        this.ip = ip;
+    public PortInfoBean( String port, String service, String type) {
         this.port = port;
         this.service = service;
         this.type = type;
     }
 
-    public String getIp() {
-        return ip;
-    }
+    public PortInfoBean(){
 
-    public void setIp(String ip) {
-        this.ip = ip;
     }
 
     public String getPort() {

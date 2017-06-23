@@ -24,7 +24,8 @@ import butterknife.ButterKnife;
 
 public class PortInfoActivity extends AppCompatActivity {
 
-    public static List<Integer> mPortList = new ArrayList<>();
+    public static Context mContext;
+    public static List<PortInfoBean> mPortList = new ArrayList<>();
     public static List<PortInfoBean> mPortInfoBeanList = new ArrayList<>();
     private static final String IP = "ip";
     private static final String STARTPORT = "startPort";
@@ -46,6 +47,7 @@ public class PortInfoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        mContext = this;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_port_info);
         ButterKnife.bind(this);
@@ -59,7 +61,7 @@ public class PortInfoActivity extends AppCompatActivity {
     private void initView() {
         initPortBeanList();
         mPortInfoRv.setLayoutManager(new LinearLayoutManager(this));
-        PortInfoAdapter adapter = new PortInfoAdapter(mPortInfoBeanList);
+        PortInfoAdapter adapter = new PortInfoAdapter(this, mPortInfoBeanList);
         mPortInfoRv.setAdapter(adapter);
     }
 
@@ -70,10 +72,6 @@ public class PortInfoActivity extends AppCompatActivity {
         }
         if(startPort.length() > 0 && endPort.length() > 0){
             PortScannerHelper.scanOneIp(String.valueOf(ip), Integer.valueOf(startPort), Integer.valueOf(endPort), 100, 1000);
-
-        }
-        for (Integer integer : mPortList) {
-            mPortInfoBeanList.add(new PortInfoBean("192.168.199.209", String.valueOf(integer), "sdf", "sdf"));
         }
 
     }

@@ -1,5 +1,7 @@
 package com.example.developerhaoz.portscanner.utils;
 
+import com.example.developerhaoz.portscanner.bean.PortInfoBean;
+import com.example.developerhaoz.portscanner.common.VolleyHelper;
 import com.example.developerhaoz.portscanner.ui.PortInfoActivity;
 import com.orhanobut.logger.Logger;
 
@@ -51,7 +53,9 @@ public class ScanMethod implements Runnable {
                 try {
                     socket.connect(socketAddress, timeout);
                     socket.close();
-                    PortInfoActivity.mPortList.add(port);
+                    String response = VolleyHelper.sendHttpGet(PortInfoActivity.mContext, AddressDecoder.getAddress(String.valueOf(port)));
+                    PortInfoBean portInfoBean = GsonHelper.getPortInfoBean(response);
+                    PortInfoActivity.mPortList.add(portInfoBean);
                     Logger.d("端口" + port + "开放");
                 } catch (IOException e) {
                     e.printStackTrace();
