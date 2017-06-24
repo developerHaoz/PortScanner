@@ -3,7 +3,9 @@ package com.example.developerhaoz.portscanner.utils;
 import com.example.developerhaoz.portscanner.bean.PortInfoBean;
 import com.example.developerhaoz.portscanner.ui.PortDataBean;
 import com.google.gson.Gson;
+import com.orhanobut.logger.Logger;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -36,8 +38,11 @@ public class GsonHelper {
         try {
             JSONObject responseJson = new JSONObject(response);
             String data = responseJson.getString("data");
+            JSONArray jsonArray = new JSONArray(data);
+            String dataJson = jsonArray.get(0).toString();
+            Logger.d(dataJson);
             Gson gson = new Gson();
-            portInfoBean = gson.fromJson(data, PortInfoBean.class);
+            portInfoBean = gson.fromJson(dataJson, PortInfoBean.class);
             return portInfoBean;
         } catch (JSONException e) {
             e.printStackTrace();
