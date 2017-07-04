@@ -7,6 +7,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.orhanobut.logger.Logger;
 
 import java.io.IOException;
 
@@ -20,6 +21,7 @@ import okhttp3.Request;
 public class VolleyHelper {
 
     private static String response = "";
+
     /**
      * 用于发送 Get 请求的封装方法
      *
@@ -44,6 +46,13 @@ public class VolleyHelper {
         requestQueue.add(stringRequest);
     }
 
+    /**
+     * 直接获取网络请求返回的内容
+     *
+     * @param context
+     * @param url
+     * @return
+     */
     public static String sendHttpGet(Context context, String url) {
         String responseData = "";
         OkHttpClient client = new OkHttpClient();
@@ -56,27 +65,26 @@ public class VolleyHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return responseData;
-//
-//        RequestQueue requestQueue = Volley.newRequestQueue(context);
-//        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
-//            @Override
-//            public void onResponse(String s) {
-//                response = s;
-//                PortInfoBean portInfoBean = GsonHelper.getPortInfoBean(response);
-//                PortInfoActivity.mPortInfoBeanList.add(portInfoBean);
-//            }
-//        }, new Response.ErrorListener() {
-//            @Override
-//            public void onErrorResponse(VolleyError error) {
-//                Logger.d(error);
-//            }
-//        });
-//        requestQueue.add(stringRequest);
-//        return response;
-//    }
+    }
 
+    public static String sendHttpTest(Context context, String url) {
+
+        RequestQueue requestQueue = Volley.newRequestQueue(context);
+        StringRequest stringRequest = new StringRequest(url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String s) {
+                response = s;
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Logger.d(error);
+            }
+        });
+        requestQueue.add(stringRequest);
+        return response;
     }
 
 }

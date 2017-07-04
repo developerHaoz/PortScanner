@@ -22,8 +22,12 @@ public class PortInfoAdapter extends Adapter<PortInfoAdapter.PortInfoViewHolder>
 
     private List<PortInfoBean> mPortInfoBeanList;
     private Context mContext;
+    private String startIp;
+    private String endIp;
 
-    public PortInfoAdapter(Context context, List<PortInfoBean> portInfoBeanList){
+    public PortInfoAdapter(String startIp, String endIp, Context context, List<PortInfoBean> portInfoBeanList){
+        this.startIp = startIp;
+        this.endIp = endIp;
         mContext = context;
         this.mPortInfoBeanList = portInfoBeanList;
     }
@@ -38,7 +42,7 @@ public class PortInfoAdapter extends Adapter<PortInfoAdapter.PortInfoViewHolder>
     @Override
     public void onBindViewHolder(PortInfoViewHolder holder, int position) {
         PortInfoBean portInfoBean = mPortInfoBeanList.get(position);
-        holder.mTvIp.setText("192.168.199.209");
+        holder.mTvIp.setText(startIp);
         holder.mTvPort.setText(portInfoBean.getPort());
         holder.mtvService.setText(portInfoBean.getService());
         holder.mtvType.setText(portInfoBean.getType());

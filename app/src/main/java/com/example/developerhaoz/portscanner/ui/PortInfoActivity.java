@@ -41,24 +41,36 @@ public class PortInfoActivity extends AppCompatActivity {
     public static Context mContext;
     public static List<Integer> mPortList = new ArrayList<>();
     public static List<PortInfoBean> mPortInfoBeanList = new ArrayList<>();
-    private static final String IP = "ip";
+    private static final String START_IP = "start_ip";
+    private static final String END_IP = "end_ip";
     private static final String STARTPORT = "startPort";
     private static final String ENDPORT = "endPort";
+    private static final String MODULE = "module";
 
-    private String ip;
+    private String startIp;
+    private String endIp;
     private String startPort;
     private String endPort;
 
+    /**
+     * 用来判断是扫描一个 ip，还是扫描多个 ip
+     */
+    private int module;
+
     private DialogFragment mDialogFragment;
+
+
 
     @Bind(R.id.port_info_ll)
     LinearLayout mPortInfoLl;
     @Bind(R.id.port_info_rv)
     RecyclerView mPortInfoRv;
 
-    public static void startActivity(Context context, String ip, String startPort, String endPort) {
+    public static void startActivity(int module, Context context, String startIp, String endIp, String startPort, String endPort) {
         Intent intent = new Intent(context, PortInfoActivity.class);
-        intent.putExtra(IP, ip);
+        intent.putExtra(MODULE, module);
+        intent.putExtra(START_IP, startIp);
+        intent.putExtra(END_IP, endIp);
         intent.putExtra(STARTPORT, startPort);
         intent.putExtra(ENDPORT, endPort);
         context.startActivity(intent);
@@ -72,14 +84,15 @@ public class PortInfoActivity extends AppCompatActivity {
         mDialogFragment = DialogFragmentHelper.showProgress(getSupportFragmentManager(), "正在扫描中...");
         ButterKnife.bind(this);
         Intent intent = getIntent();
-        ip = intent.getStringExtra(IP);
+        module = intent.getIntExtra(MODULE, 1);
+        startIp = intent.getStringExtra(START_IP);
+        endIp = intent.getStringExtra(END_IP);
         startPort = intent.getStringExtra(STARTPORT);
         endPort = intent.getStringExtra(ENDPORT);
         initView();
     }
 
     private void initView() {
-
         try {
             Task.call(new Callable<List<PortInfoBean>>() {
                 @Override
@@ -91,7 +104,7 @@ public class PortInfoActivity extends AppCompatActivity {
                     }
 
                     if (startPort.length() > 0 && endPort.length() > 0) {
-                        PortScannerHelper.scanOneIp(String.valueOf(ip), Integer.valueOf(startPort), Integer.valueOf(endPort), 100, 1000);
+                        PortScannerHelper.scanOneIp(String.valueOf(startIp), Integer.valueOf(startPort), Integer.valueOf(endPort), 100, 1000);
                     }
                     for (Integer integer : mPortList) {
                         String response = VolleyHelper.sendHttpGet(PortInfoActivity.this, AddressDecoder.getAddress(String.valueOf(integer)));
@@ -107,7 +120,7 @@ public class PortInfoActivity extends AppCompatActivity {
 
                     List<PortInfoBean> portInfoBeanList = task.getResult();
                     Logger.d(portInfoBeanList.size());
-                    PortInfoAdapter adapter = new PortInfoAdapter(PortInfoActivity.this, portInfoBeanList);
+                    PortInfoAdapter adapter = new PortInfoAdapter(startIp, endIp, PortInfoActivity.this, portInfoBeanList);
                     mPortInfoRv.setLayoutManager(new LinearLayoutManager(PortInfoActivity.this));
                     mPortInfoRv.setAdapter(adapter);
                     mPortInfoLl.setVisibility(View.VISIBLE);
@@ -121,7 +134,6 @@ public class PortInfoActivity extends AppCompatActivity {
     }
 
     private void initPortBeanList() {
-
     }
 
     @Subscribe

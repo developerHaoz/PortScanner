@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/scan_one"
+        android:title="只扫描一个 IP 地址"
+        >
+    </item>
+
+    <item
+        android:id="@+id/scan_multi"
+        android:title="扫描多个 IP 地址"
+        >
+    </item>
+</menu>

@@ -18,6 +18,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".ui.PortInfoActivity"/>
+        <activity android:name=".ui.TestActivity">
+        </activity>
     </application>
 
 </manifest>
